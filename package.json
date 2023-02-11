@@ -1,7 +1,7 @@
 {
   "name": "boudra-tristan-node",
   "version": "1.0.1",
-  "description": "Lorem ipsum dolor sit amet",
+  "description": "Projet NodeJS",
   "main": "src/server.ts",
   "repository": "https://github.com/Tristan-Boudra/MDS-NodeJS",
   "scripts": {
@@ -17,6 +17,8 @@
     "cookie-parser": "^1.4.6",
     "express": "^4.18.2",
     "express-ws": "^5.0.2",
+    "jade": "^1.11.0",
+    "pug": "^3.0.2",
     "ws": "^8.11.0"
   },
   "devDependencies": {

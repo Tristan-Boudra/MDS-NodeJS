@@ -1,13 +1,13 @@
-import {NextFunction, Request, Response} from "express";
+import { Request, Response, NextFunction } from "express";
 
-export function authenticationMiddleware(
+export function authentificationMiddleware(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   if (!req.signedCookies.ssid) {
-    res.redirect('/login')
-    return
+    res.redirect("/login");
+    return;
   }
-  next()
+  next();
 }

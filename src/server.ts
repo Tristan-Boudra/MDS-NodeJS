@@ -1,48 +1,61 @@
-import expressWs, {Application} from "express-ws";
-import express, {Request, Response, NextFunction} from "express";
-import cookieParser from 'cookie-parser'
-import path from 'path'
-import {getLogin} from "./routes/getLogin";
-import {getRoot} from "./routes/getRoot";
-import {getWs} from "./routes/getWs";
-import {postLogin} from "./routes/postLogin";
-import {authenticationMiddleware} from "./middlewares/authenticationMiddleware";
-import {getRegister} from "./routes/getRegister";
-import {postRegister} from "./routes/postRegister";
-
-const SECRET_KEY = 'MySecretKeyIsAwesome'
+import express, { NextFunction, Request, Response } from "express";
+import expressWs, { Application } from "express-ws";
+import cookieParser from "cookie-parser";
+import path from "path";
+import { getLogin } from "./routes/getLogin";
+import { getRoot } from "./routes/getRoot";
+import { getWs } from "./routes/getWs";
+import { getWsPosts } from "./routes/getWsPosts";
+import { getRegister } from "./routes/getRegister";
+import { getProfile } from "./routes/getProfile";
+import { getLogout } from "./routes/getLogout";
+import { postLogin } from "./routes/postLogin";
+import { postRegister } from "./routes/postRegister";
+import { authentificationMiddleware } from "./middlewares/authenticationMiddleware";
+import { updateProfile } from "./routes/updateProfile";
+import { deleteProfile } from "./routes/deleteProfile";
 
 function main() {
   const app = express() as unknown as Application;
   expressWs(app);
   const sockets = new Map();
 
-  app.use((req, res, next) => {
-    console.log(new Date().toISOString(), req.method, req.path)
-    next()
-  })
-  app.use(cookieParser(SECRET_KEY))
-  app.use(express.static(path.join(__dirname, '../public')))
+  const SECRET_KEY = 'MySecretKeyIsAwesome'
 
-  getLogin(app)
-  postLogin(app)
-  getRegister(app)
-  postRegister(app)
+  app.use(express.urlencoded());
 
-  app.use(authenticationMiddleware)
-  getRoot(app)
-  getWs(app, sockets)
+  // use cookie
+  app.use(cookieParser(SECRET_KEY));
 
-  app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
-    console.error(error)
-    res.status(500).send('Internal Server Error')
+  // Set the engine pug
+  app.set("view engine", "pug");
 
-    next()
-  })
+  getLogin(app);
+  postLogin(app);
+  getRegister(app);
+  postRegister(app);
+  
+  app.use(authentificationMiddleware);
+
+  getLogout(app);
+  getProfile(app);
+  updateProfile(app);
+  deleteProfile(app);
+  getRoot(app);
+  getWs(app, sockets);
+  getWsPosts(app, sockets);
+
+  app.use(express.static(path.join(process.cwd(), "public")));
+
+  app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    console.error(err);
+    res.status(500).send("Internal error");
+    next();
+  });
 
   app.listen(3000, () => {
-    console.log('Example app listening on port 3000!');
+    console.log("Server listening on port 3000");
   });
 }
 
-main()
+main();

@@ -1,0 +1,26 @@
+html
+  head
+    title='Facebook'
+    style  
+        include style.css 
+  body
+  h1="Welcome to Facebook"
+  nav 
+    a(href="/profile")="Profile settings"
+    a(href="/chat")="Facebook chat"
+    a(href="/logout")="Logout"
+
+    form#form-upload(method="POST", enctype="multipart/form-data") 
+        textarea#post-area(name="post", cols="100", rows="20") 
+        button(type="submit", id="btnSubmit")="Submit"
+      
+    div#posts-list
+      each item in posts
+        if item.content
+          li= item.content
+
+
+
+        script 
+        include post.js 
+  

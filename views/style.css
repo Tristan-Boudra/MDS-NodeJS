@@ -1,0 +1,67 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+nav{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1{
+    color: #1774EB;
+}
+
+a {
+    color: #1774EB;
+    text-decoration: none;
+}
+
+a:hover {
+    font-weight: 600;
+}
+
+#form-profile{
+display: flex;
+}
+
+input{
+    padding: 5px;
+    border-radius: 10px;
+    height: 38px;
+}
+
+#form-upload{
+    display: flex;
+    flex-direction: column;
+}
+
+#btnSubmit{
+    width: 100px;
+    margin: auto;
+    margin-top: 10px;
+    border: none;
+    border-radius: 10px;
+    height: 38px;
+    background-color: #1774EB;
+    color: white;
+}
+
+#form-profile{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.btnForm{
+    width: 100px;
+    margin: auto;
+    margin-top: 10px;
+    border: none;
+    border-radius: 10px;
+    height: 38px;
+    background-color: #1774EB;
+    color: white;
+}

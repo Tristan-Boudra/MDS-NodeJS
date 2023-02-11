@@ -1,0 +1,16 @@
+html
+  head
+    title='Setting profile'
+    style  
+      include style.css 
+  body
+  div#form-profile
+    form(action="/profile", method="POST", id="form-profile")
+      input(type="text", name="name", placeholder=name) 
+      input(type="text", name="email", placeholder=email)
+      button(type="submit", class="btnForm")="Update your profile"
+
+  form#form-upload(action="/avatar", method="POST", enctype="multipart/form-data")
+
+  form(action="/delete", method="POST") 
+    button(type="submit", class="btnForm")="Delete your profile"
